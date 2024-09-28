@@ -1,12 +1,18 @@
 // React
-import { createContext, ReactNode, useContext, useState } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useState,
+} from "react";
 
 // Error
-import { FetchError } from '../errors/FetchError';
-import { ContextError } from '../errors/ContextError';
+import { FetchError } from "../errors/FetchError";
+import { ContextError } from "../errors/ContextError";
 
 // API
-import { NoWhere, Planet } from '../api/planet.api';
+import { NoWhere, Planet } from "../api/planet.api";
 
 type SpaceTravelContextType = {
   isTraveling: boolean;
@@ -24,7 +30,7 @@ type SpaceTravelContextType = {
 
 const initialSpaceTravelContext: SpaceTravelContextType = {
   isTraveling: false,
-  currentPlanet: 'NO_WHERE',
+  currentPlanet: "NO_WHERE",
   planetList: {
     isLoading: false,
   },
@@ -37,14 +43,15 @@ export function SpaceTravelProvider({ children }: { children: ReactNode }) {
   const [spaceTravelState, setSpaceTravelState] =
     useState<SpaceTravelContextType>(initialSpaceTravelContext);
 
-  const updateSpaceTravelContext = (
-    stateToUpdate: Partial<SpaceTravelContextType>,
-  ) => {
-    setSpaceTravelState((prevState) => ({
-      ...prevState,
-      ...stateToUpdate,
-    }));
-  };
+  const updateSpaceTravelContext = useCallback(
+    (stateToUpdate: Partial<SpaceTravelContextType>) => {
+      setSpaceTravelState((prevState) => ({
+        ...prevState,
+        ...stateToUpdate,
+      }));
+    },
+    [],
+  );
 
   return (
     <SpaceTravelContext.Provider
@@ -63,8 +70,8 @@ export function useSpaceTravelContext(): SpaceTravelContextType {
 
   if (!spaceTravelContext) {
     throw new ContextError(
-      'SpaceTravelContext',
-      'no SpaceTravelContext available, is the Provider was set ?',
+      "SpaceTravelContext",
+      "no SpaceTravelContext available, is the Provider was set ?",
     );
   }
 
@@ -72,22 +79,22 @@ export function useSpaceTravelContext(): SpaceTravelContextType {
 }
 
 export function useIsTraveling(): {
-  isTraveling: SpaceTravelContextType['isTraveling'];
-  setIsTraveling: (isTraveling: SpaceTravelContextType['isTraveling']) => void;
+  isTraveling: SpaceTravelContextType["isTraveling"];
+  setIsTraveling: (isTraveling: SpaceTravelContextType["isTraveling"]) => void;
 } {
   const { isTraveling, updateSpaceTravelContext } = useSpaceTravelContext();
 
   return {
     isTraveling,
-    setIsTraveling: (isTraveling: SpaceTravelContextType['isTraveling']) =>
+    setIsTraveling: (isTraveling: SpaceTravelContextType["isTraveling"]) =>
       updateSpaceTravelContext({ isTraveling }),
   };
 }
 
 export function useSelectedPlanetForSpaceTravel(): {
-  selectedPlanetForSpaceTravel: SpaceTravelContextType['selectedPlanetForSpaceTravel'];
+  selectedPlanetForSpaceTravel: SpaceTravelContextType["selectedPlanetForSpaceTravel"];
   setSelectedPlanetForSpaceTravel: (
-    selectedPlanetForSpaceTravel: SpaceTravelContextType['selectedPlanetForSpaceTravel'],
+    selectedPlanetForSpaceTravel: SpaceTravelContextType["selectedPlanetForSpaceTravel"],
   ) => void;
 } {
   const { selectedPlanetForSpaceTravel, updateSpaceTravelContext } =
@@ -96,15 +103,15 @@ export function useSelectedPlanetForSpaceTravel(): {
   return {
     selectedPlanetForSpaceTravel,
     setSelectedPlanetForSpaceTravel: (
-      selectedPlanetForSpaceTravel: SpaceTravelContextType['selectedPlanetForSpaceTravel'],
+      selectedPlanetForSpaceTravel: SpaceTravelContextType["selectedPlanetForSpaceTravel"],
     ) => updateSpaceTravelContext({ selectedPlanetForSpaceTravel }),
   };
 }
 
 export function useCurrentPlanet(): {
-  currentPlanet: SpaceTravelContextType['currentPlanet'];
+  currentPlanet: SpaceTravelContextType["currentPlanet"];
   setCurrentPlanet: (
-    currentPlanet: SpaceTravelContextType['currentPlanet'],
+    currentPlanet: SpaceTravelContextType["currentPlanet"],
   ) => void;
 } {
   const { currentPlanet, updateSpaceTravelContext } = useSpaceTravelContext();
@@ -112,20 +119,20 @@ export function useCurrentPlanet(): {
   return {
     currentPlanet,
     setCurrentPlanet: (
-      currentPlanet: SpaceTravelContextType['currentPlanet'],
+      currentPlanet: SpaceTravelContextType["currentPlanet"],
     ) => updateSpaceTravelContext({ currentPlanet }),
   };
 }
 
 export function usePlanetList(): {
-  planetList: SpaceTravelContextType['planetList'];
-  setPlanetList: (planetList: SpaceTravelContextType['planetList']) => void;
+  planetList: SpaceTravelContextType["planetList"];
+  setPlanetList: (planetList: SpaceTravelContextType["planetList"]) => void;
 } {
   const { planetList, updateSpaceTravelContext } = useSpaceTravelContext();
 
   return {
     planetList,
-    setPlanetList: (planetList: SpaceTravelContextType['planetList']) =>
+    setPlanetList: (planetList: SpaceTravelContextType["planetList"]) =>
       updateSpaceTravelContext({ planetList }),
   };
 }

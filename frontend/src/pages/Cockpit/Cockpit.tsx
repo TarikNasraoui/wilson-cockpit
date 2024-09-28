@@ -43,11 +43,18 @@ export function Cockpit() {
 
   const { isLoading, data, error } =
     useFetch<GetPlanetListAPIResponse>(getPlanetListFromAPI);
-  const { setPlanetList } = usePlanetList();
+
+  const { planetList, setPlanetList } = usePlanetList();
 
   useEffect(() => {
-    setPlanetList({ isLoading, planetList: data, error });
-  }, [data, error, isLoading, setPlanetList]);
+    if (
+      isLoading !== planetList.isLoading ||
+      data !== planetList.planetList ||
+      error !== planetList.error
+    ) {
+      setPlanetList({ isLoading, planetList: data, error });
+    }
+  }, [data, error, isLoading, planetList, setPlanetList]);
 
   const { isTraveling } = useIsTraveling();
 
