@@ -1,7 +1,9 @@
 import Planet from './Planet';
 
 interface Astronaut {
-  // WILSON A TOUT OUBLIÉ ICI
+  firstname: string;
+  lastname: string;
+  originPlanet: Planet;
 }
 
 export default Astronaut;
