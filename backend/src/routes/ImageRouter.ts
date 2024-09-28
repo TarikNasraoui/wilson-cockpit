@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/allImage', ImageController.getAll);
 router.get('/:id', ImageController.getById);
 router.post('/create/', ImageController.create);
-router.post('/update/:id', ImageController.update);
-router.post('/delete/:id', ImageController.delete);
+router.put('/update/:id', ImageController.update);
+router.delete('/delete/:id', ImageController.delete);
 
 export default router;
