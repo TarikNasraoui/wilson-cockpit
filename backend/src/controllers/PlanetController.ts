@@ -6,10 +6,24 @@ const PlanetController = {
     try {
       const planets = (
         await knex('planets')
-          .select('planets.*', 'images.path', 'images.name as imageName')
+          .select(
+            'planets.*',
+            'images.path',
+            'images.name as imageName',
+            knex.raw(`
+            GROUP_CONCAT(
+              JSON_OBJECT(
+                'id', astronauts.id,
+                'firstname', astronauts.firstname,
+                'lastname', astronauts.lastname
+              )
+            ) as astronauts
+          `)
+          )
           .join('images', 'images.id', '=', 'planets.imageId')
-          .where((queryBuilder) => {})
-      ).map(({ id, name, isHabitable, description, path, imageName }) => ({
+          .leftJoin('astronauts', 'astronauts.originPlanetId', '=', 'planets.id')
+          .groupBy('planets.id', 'images.id')
+      ).map(({ id, name, isHabitable, description, path, imageName, astronauts }) => ({
         id,
         name,
         isHabitable,
@@ -18,6 +32,7 @@ const PlanetController = {
           path,
           name: imageName,
         },
+        astronauts: JSON.parse(`[${astronauts}]`) || [],
       }));
       res.status(200).json(planets);
     } catch (error) {
@@ -29,7 +44,27 @@ const PlanetController = {
   getById: async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
     try {
-      const data = await knex('planets').where('id', id).first();
+      const data = await await knex('planets')
+        .select(
+          'planets.*',
+          'images.path',
+          'images.name as imageName',
+          knex.raw(`
+          GROUP_CONCAT(
+            JSON_OBJECT(
+              'id', astronauts.id,
+              'firstname', astronauts.firstname,
+              'lastname', astronauts.lastname
+            )
+          ) as astronauts
+        `)
+        )
+        .join('images', 'images.id', '=', 'planets.imageId')
+        .leftJoin('astronauts', 'astronauts.originPlanetId', '=', 'planets.id')
+        .where('planets.id', id)
+        .groupBy('planets.id', 'images.id')
+        .first();
+
       if (data) {
         res.status(200).json({
           id: data.id,
@@ -40,6 +75,7 @@ const PlanetController = {
             path: data.path,
             name: data.imageName,
           },
+          astronauts: JSON.parse(`[${data.astronauts}]`) || [],
         });
       } else {
         res.status(404).json({ error: 'Planet not found' });
