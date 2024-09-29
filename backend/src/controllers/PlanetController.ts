@@ -4,6 +4,7 @@ import knex from '../db';
 const PlanetController = {
   getAll: async (req: Request, res: Response): Promise<void> => {
     try {
+      const { filterName } = req.query;
       const planets = (
         await knex('planets')
           .select(
@@ -22,7 +23,12 @@ const PlanetController = {
           )
           .join('images', 'images.id', '=', 'planets.imageId')
           .leftJoin('astronauts', 'astronauts.originPlanetId', '=', 'planets.id')
-          .groupBy('planets.id', 'images.id')
+          .where((queryBuilder) => {
+            if (filterName) {
+              queryBuilder.where('planets.name', 'like', `%${filterName}%`);
+            }
+          })
+          .groupBy('planets.id', 'images.path', 'images.name')
       ).map(({ id, name, isHabitable, description, path, imageName, astronauts }) => ({
         id,
         name,
