@@ -1,9 +1,6 @@
 import { AstronautDTO } from 'src/types/AstronautDTO';
 import knex from '../../db';
 import { IAstronautRepository } from './IAstronautRepository';
-import Astronaut from 'src/entities/Astronaut';
-import Planet from 'src/entities/Planet';
-import Image from 'src/entities/Image';
 import { RetunedAstronaut } from 'src/types/RetunedAstronaut';
 
 class AstronautRepository implements IAstronautRepository {
@@ -26,7 +23,6 @@ class AstronautRepository implements IAstronautRepository {
         .join('images', 'images.id', '=', 'planets.imageId');
       return astronauts;
     } catch (error) {
-      console.error('Error fetching astronauts:', error);
       throw new Error('Could not fetch astronauts.');
     }
   }

@@ -10,7 +10,6 @@ class ImageService {
     try {
       return await this.imageRepository.getAll();
     } catch (error) {
-      console.error('Error fetching all images:', error);
       throw new Error('Could not fetch images.');
     }
   }
@@ -19,7 +18,6 @@ class ImageService {
     try {
       return await this.imageRepository.getById(id);
     } catch (error) {
-      console.error(`Error fetching image with id ${id}:`, error);
       throw new Error(`Could not fetch image with id ${id}.`);
     }
   }
@@ -29,7 +27,6 @@ class ImageService {
       const { name, path } = image;
       return await this.imageRepository.create({ name, path });
     } catch (error) {
-      console.error('Error creating image:', error);
       throw new Error('Could not create image.');
     }
   }
@@ -50,7 +47,6 @@ class ImageService {
     try {
       return await this.imageRepository.delete(id);
     } catch (error) {
-      console.error(`Error deleting image with id ${id}:`, error);
       throw new Error(`Could not delete image with id ${id}.`);
     }
   }
