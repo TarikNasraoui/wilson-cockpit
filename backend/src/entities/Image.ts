@@ -1,7 +1,7 @@
 interface Image {
   id: number;
-  name: string;
-  path: string;
+  imagePath: string;
+  imageName: string;
 }
 
 export default Image;

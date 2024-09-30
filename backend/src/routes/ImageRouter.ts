@@ -1,12 +1,18 @@
 import express from 'express';
+
+import ImageService from '../services/ImageService';
 import ImageController from '../controllers/ImageController';
+import ImageRepository from '../repositories/image/ImageRepository';
 
 const router = express.Router();
 
-router.get('/', ImageController.getAll);
-router.get('/:id', ImageController.getById);
-router.post('/', ImageController.create);
-router.put('/:id', ImageController.update);
-router.delete('/:id', ImageController.delete);
+const imageService = new ImageService(ImageRepository);
+const imageController = new ImageController(imageService);
+
+router.get('/', imageController.getAll);
+router.get('/:id', imageController.getById);
+router.post('/', imageController.create);
+router.put('/:id', imageController.update);
+router.delete('/:id', imageController.delete);
 
 export default router;
