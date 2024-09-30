@@ -2,13 +2,13 @@ import { Request, Response } from 'express';
 import AstronautService from 'src/services/AstronautService';
 
 class AstronautController {
-  constructor(private astonautService: AstronautService) {
-    this.astonautService = astonautService;
+  constructor(private astronautService: AstronautService) {
+    this.astronautService = astronautService;
   }
 
   getAll = async (req: Request, res: Response): Promise<void> => {
     try {
-      const astronauts = await this.astonautService.getAll();
+      const astronauts = await this.astronautService.getAll();
       res.status(200).json(astronauts);
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });
@@ -21,7 +21,7 @@ class AstronautController {
       res.status(400).json({ error: 'Invalid astronaut ID' });
     }
     try {
-      const astronaut = await this.astonautService.getById(Number(id));
+      const astronaut = await this.astronautService.getById(Number(id));
       if (!astronaut) {
         res.status(404).json({ error: 'Astronaut not found' });
       }
@@ -37,7 +37,7 @@ class AstronautController {
       res.status(400).json({ error: 'Missing required fields' });
     }
     try {
-      const id = await this.astonautService.create({ firstname, lastname, originPlanetId });
+      const id = await this.astronautService.create({ firstname, lastname, originPlanetId });
       res.status(201).json({ id, firstname, lastname, originPlanetId });
     } catch (error) {
       console.error('Error creating astronaut:', error);
@@ -49,7 +49,7 @@ class AstronautController {
     const { id } = req.params;
     const { firstname, lastname, originPlanetId } = req.body;
     try {
-      const updatedRows = await this.astonautService.update({
+      const updatedRows = await this.astronautService.update({
         id: Number(id),
         firstname,
         lastname,
@@ -73,7 +73,7 @@ class AstronautController {
     }
 
     try {
-      const deletedRows = await this.astonautService.delete(Number(id));
+      const deletedRows = await this.astronautService.delete(Number(id));
       if (deletedRows > 0) {
         res.status(200).json({ message: 'Astronaut deleted successfully' });
       } else {

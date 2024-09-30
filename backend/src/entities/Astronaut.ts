@@ -1,7 +1,7 @@
 import Planet from './Planet';
 
 interface Astronaut {
-  id: number | null;
+  id: number;
   firstname: string;
   lastname: string;
   originPlanet?: Omit<Planet, 'astronauts'>;

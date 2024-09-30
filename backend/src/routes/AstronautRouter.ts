@@ -6,8 +6,8 @@ import AstronautController from '../controllers/AstronautController';
 
 const router = express.Router();
 
-const astonautService = new AstronautService(AstronautRepository);
-const astronautController = new AstronautController(astonautService);
+const astronautService = new AstronautService(AstronautRepository);
+const astronautController = new AstronautController(astronautService);
 
 router.get('/', astronautController.getAll);
 router.get('/:id', astronautController.getById);
