@@ -1,20 +1,20 @@
 // React
-import { CSSProperties } from 'react';
+import { CSSProperties } from "react";
 
 // Libs
-import classnames from 'classnames';
+import classnames from "classnames";
 
 // Components
-import { HUDWindow } from '../HUDWindow';
-import { HUDListItem } from '../HUDListItem';
-import { Flexbox } from '../Flexbox';
+import { HUDWindow } from "../HUDWindow";
+import { HUDListItem } from "../HUDListItem";
+import { Flexbox } from "../Flexbox";
 
 // SVG
-import IconSquareEdit from '../../assets/icon-square-edit.svg?react';
-import IconTrashAlt from '../../assets/icon-trash-alt.svg?react';
+import IconSquareEdit from "../../assets/icon-square-edit.svg?react";
+import IconTrashAlt from "../../assets/icon-trash-alt.svg?react";
 
 // Styles
-import styles from './HUDAstronautList.module.css';
+import styles from "./HUDAstronautList.module.css";
 
 export type AstronautForList = {
   id: number;
@@ -80,7 +80,7 @@ export function HUDAstronautList({
               onDelete({ id, firstname, lastname, planetOfOrigin });
 
             return (
-              <HUDListItem hasBorder={!isLastElement}>
+              <HUDListItem hasBorder={!isLastElement} key={astronautListIndex}>
                 <Flexbox
                   justifyContent="space-between"
                   className={styles.astronautlistContent}
