@@ -1,11 +1,12 @@
-import Image from './Image';
+import Astronaut from './Astronaut';
 
 interface Planet {
   id: number;
   name: string;
   description: string;
-  image: Image;
   isHabitable: boolean;
+  image: any;
+  astronauts: Astronaut[];
 }
 
 export default Planet;
