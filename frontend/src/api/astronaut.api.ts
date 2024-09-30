@@ -1,8 +1,8 @@
 // API Fetch
-import { fetchApi } from './fetch';
+import { fetchApi } from "./fetch";
 
 // Type
-import { Planet } from './planet.api';
+import { Planet } from "./planet.api";
 
 export type Astronaut = {
   id: number;
@@ -16,7 +16,7 @@ export type GetAstronautListAPIResponse = Astronaut[];
 export function getAstronautListFromAPI<GetAstronautListAPIResponse>(
   options?: RequestInit,
 ): Promise<GetAstronautListAPIResponse> {
-  return fetchApi<GetAstronautListAPIResponse>('/astronauts', options);
+  return fetchApi<GetAstronautListAPIResponse>("/astronauts", options);
 }
 
 type DeleteAstronautAPIResponse = {
@@ -25,11 +25,11 @@ type DeleteAstronautAPIResponse = {
 
 export function deleteAstronautAPICall(astronautId: number) {
   return fetchApi<DeleteAstronautAPIResponse>(`/astronauts/${astronautId}`, {
-    method: 'DELETE',
+    method: "DELETE",
   });
 }
 
-export async function getOneAstronautFromAPI<Astronaut>(
+export async function getOneAstronautFromAPI(
   astronautId?: string,
   options?: RequestInit,
 ): Promise<Astronaut | undefined> {
@@ -41,8 +41,8 @@ export async function getOneAstronautFromAPI<Astronaut>(
 }
 
 export type CreateUpdateAstronautRequestBody = Pick<
-Astronaut,
-'firstname' | 'lastname'
+  Astronaut,
+  "firstname" | "lastname"
 > & { originPlanetId: number };
 
 export type CreateUpdateAstronautResponse = CreateUpdateAstronautRequestBody & {
@@ -52,8 +52,8 @@ export type CreateUpdateAstronautResponse = CreateUpdateAstronautRequestBody & {
 export function createAstronautAPICall(
   astronautToCreate: CreateUpdateAstronautRequestBody,
 ): Promise<CreateUpdateAstronautResponse> {
-  return fetchApi<CreateUpdateAstronautResponse>('/astronauts/', {
-    method: 'POST',
+  return fetchApi<CreateUpdateAstronautResponse>("/astronauts/", {
+    method: "POST",
     body: JSON.stringify(astronautToCreate),
   });
 }
@@ -63,7 +63,7 @@ export function updateAstronautAPICall(
   astronautToUpdate: CreateUpdateAstronautRequestBody,
 ): Promise<CreateUpdateAstronautRequestBody> {
   return fetchApi<CreateUpdateAstronautResponse>(`/astronauts/${astronautId}`, {
-    method: 'PUT',
+    method: "PUT",
     body: JSON.stringify(astronautToUpdate),
   });
 }
