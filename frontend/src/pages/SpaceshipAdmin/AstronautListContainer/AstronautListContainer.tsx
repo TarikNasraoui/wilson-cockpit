@@ -2,19 +2,19 @@
 import {
   AstronautForList,
   HUDAstronautList,
-} from '../../../components/HUDAstronautList';
-import { HUDWindowLoader } from '../../../components/HUDWindowLoader';
+} from "../../../components/HUDAstronautList";
+import { HUDWindowLoader } from "../../../components/HUDWindowLoader";
 
 // Context
-import { useAstronautList } from '../../../contexts/SpaceshipContext.tsx';
-import { useMessageCenter } from '../../../contexts/MessageCenterContext.tsx';
+import { useAstronautList } from "../../../contexts/SpaceshipContext.tsx";
+import { useMessageCenter } from "../../../contexts/MessageCenterContext.tsx";
 
 // Types
 // API
-import { Astronaut, deleteAstronautAPICall } from '../../../api/astronaut.api';
+import { Astronaut, deleteAstronautAPICall } from "../../../api/astronaut.api";
 
 // Styles
-import styles from './AstronautListContainer.module.css';
+import styles from "./AstronautListContainer.module.css";
 
 function mapAstronautList(astronautList?: Astronaut[] | null) {
   if (!astronautList) {
@@ -66,13 +66,13 @@ export function AstronautListContainer({
   };
 
   if (error) {
-    pushErrorMessage('Eleven Labs space services are not online ...');
+    pushErrorMessage("Eleven Labs space services are not online ...");
     throw error;
   }
 
   return (
     <>
-      {!isLoading ? (
+      {isLoading ? (
         <HUDWindowLoader
           label="astronaut in the spaceship"
           className={styles.astronautlistcontainer}
