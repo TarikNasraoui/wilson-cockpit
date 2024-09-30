@@ -1,38 +1,38 @@
 // React
-import React from 'react';
+import React from "react";
 
 // Libs
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // Components
-import { CreateOrEditAstronaut } from './pages/CreateOrEditAstronaut';
-import { Cockpit } from './pages/Cockpit';
-import { SpaceshipAdmin } from './pages/SpaceshipAdmin';
+import { CreateOrEditAstronaut } from "./pages/CreateOrEditAstronaut";
+import { Cockpit } from "./pages/Cockpit";
+import { SpaceshipAdmin } from "./pages/SpaceshipAdmin";
 
 // Containers
-import { MessageCenterContainer } from './MessageCenterContainer.tsx';
+import { MessageCenterContainer } from "./MessageCenterContainer.tsx";
 
 // Context
-import { SpaceTravelProvider } from './contexts/SpaceTravelContext.tsx';
-import { SpaceshipProvider } from './contexts/SpaceshipContext.tsx';
-import { MessageCenterProvider } from './contexts/MessageCenterContext.tsx';
+import { SpaceTravelProvider } from "./contexts/SpaceTravelContext.tsx";
+import { SpaceshipProvider } from "./contexts/SpaceshipContext.tsx";
+import { MessageCenterProvider } from "./contexts/MessageCenterContext.tsx";
 
 export function App() {
   const router = createBrowserRouter([
     {
-      path: '/',
+      path: "/",
       element: <Cockpit />,
     },
     {
-      path: '/spaceship-admin-broken',
+      path: "/spaceship-admin",
       element: <SpaceshipAdmin />,
     },
     {
-      path: '/astronaut/create',
+      path: "/astronaut/create",
       element: <CreateOrEditAstronaut />,
     },
     {
-      path: '/astronaut/edit/:astronautId',
+      path: "/astronaut/edit/:astronautId",
       element: <CreateOrEditAstronaut />,
     },
   ]);

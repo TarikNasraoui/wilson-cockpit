@@ -26,3 +26,6 @@ mysql/*
 
 # dotenv environment variable files
 .env
+
+# units tests
+coverage/
