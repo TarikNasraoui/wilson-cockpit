@@ -9,9 +9,9 @@ class PlanetService {
     this.planetRepository = planetRepository;
   }
 
-  async getAll(filterName?: string): Promise<Array<Planet>> {
+  async getAll(name?: string): Promise<Array<Planet>> {
     try {
-      const planets = await this.planetRepository.getAll(filterName);
+      const planets = await this.planetRepository.getAll(name);
       const mappedPlanets = planets.map((planet: ReturnedPlanet) => ({
         id: planet.id,
         name: planet.name,
