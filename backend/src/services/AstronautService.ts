@@ -21,8 +21,9 @@ class AstronautService {
           isHabitable: !!astronaut.isHabitable,
           description: astronaut.description,
           image: {
-            path: astronaut.imagePath,
-            name: astronaut.imageName,
+            id: astronaut.imageId,
+            imagePath: astronaut.imagePath,
+            imageName: astronaut.imageName,
           },
         },
       }));
@@ -47,8 +48,9 @@ class AstronautService {
           isHabitable: !!astronaut.isHabitable,
           description: astronaut.description,
           image: {
-            path: astronaut.imagePath,
-            name: astronaut.imageName,
+            id: astronaut.imageId,
+            imagePath: astronaut.imagePath,
+            imageName: astronaut.imageName,
           },
         },
       };
