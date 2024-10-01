@@ -1,3 +1,4 @@
+import Image from 'src/entities/Image';
 import { IImageRepository } from 'src/repositories/image/IImageRepository';
 import { ImageDTO } from 'src/types/ImageDTO';
 
@@ -6,7 +7,7 @@ class ImageService {
     this.imageRepository = imageRepository;
   }
 
-  async getAll() {
+  async getAll(): Promise<Image[]> {
     try {
       return await this.imageRepository.getAll();
     } catch (error) {
@@ -14,7 +15,7 @@ class ImageService {
     }
   }
 
-  async getById(id: number) {
+  async getById(id: number): Promise<Image | null> {
     try {
       return await this.imageRepository.getById(id);
     } catch (error) {
@@ -22,7 +23,7 @@ class ImageService {
     }
   }
 
-  async create(image: ImageDTO) {
+  async create(image: ImageDTO): Promise<number> {
     try {
       const { name, path } = image;
       return await this.imageRepository.create({ name, path });
@@ -31,7 +32,7 @@ class ImageService {
     }
   }
 
-  async update(image: ImageDTO) {
+  async update(image: ImageDTO): Promise<number> {
     try {
       const { id, name, path } = image;
       if (id && id < 1) {
@@ -43,7 +44,7 @@ class ImageService {
     }
   }
 
-  async delete(id: number) {
+  async delete(id: number): Promise<number> {
     try {
       return await this.imageRepository.delete(id);
     } catch (error) {
