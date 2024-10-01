@@ -4,7 +4,7 @@ import { IPlanetRepository } from './IPlanetRepository';
 import { ReturnedPlanet } from 'src/types/ReturnedPlanet';
 
 class PlanetRepository implements IPlanetRepository {
-  async getAll(filterName?: string): Promise<Array<ReturnedPlanet>> {
+  async getAll(name?: string): Promise<Array<ReturnedPlanet>> {
     try {
       const planets = await knex('planets')
         .select(
@@ -28,14 +28,13 @@ class PlanetRepository implements IPlanetRepository {
         .join('images', 'images.id', '=', 'planets.imageId')
         .leftJoin('astronauts', 'astronauts.originPlanetId', '=', 'planets.id')
         .where((queryBuilder) => {
-          if (filterName) {
-            queryBuilder.where('planets.name', 'like', `%${filterName}%`);
+          if (name) {
+            queryBuilder.where('planets.name', 'like', `%${name}%`);
           }
         })
         .groupBy('planets.id', 'images.id', 'images.path', 'images.name');
       return planets;
     } catch (error) {
-      console.error('Error fetching planets:', error);
       throw new Error('Could not fetch planets');
     }
   }
